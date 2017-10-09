@@ -18,7 +18,6 @@ RUN curl -fSL $MIRROR/$NIFI_BINARY_URL -o $NIFI_BASE_DIR/nifi-$NIFI_VERSION-bin.
     && rm $NIFI_BASE_DIR/nifi-$NIFI_VERSION-bin.tar.gz 
 
 # Web HTTP Port & Remote Site-to-Site Ports
-EXPOSE 8080 8181
 
 
 ADD startnifi.sh /opt/nifi/startnifi.sh
@@ -26,6 +25,7 @@ RUN chmod 777 /opt/nifi/startnifi.sh
 
 WORKDIR $NIFI_HOME
 
+EXPOSE 8080 8081 8082
 # Startup NiFi
 ENTRYPOINT ["/opt/nifi/startnifi.sh"]
 CMD ["run"]
