@@ -1,17 +1,17 @@
 version: "3"
 services:
   zookeeper:
-    image: zkpv1:latest
+    image: awsazuser/zkpr349rh7
     deploy:
       placement:
         constraints: [node.role == manager]
-    hostname: eurekaservice
+    hostname: zookeeper
     ports:
     - "2181:2181"
     networks:
       - nifinw
-  osinfo:
-    image: eurekaclient1:latest
+  nifi:
+    image: nifi:latest
     deploy:
       replicas: 1
       placement:
