@@ -1,11 +1,9 @@
 FROM apache/nifi:1.4.0
 MAINTAINER testing
 
-ENV NIFI_BASE_DIR /opt/nifi 
-ADD nifi.properties /opt/nifi/nifi.properties
+ADD startnifi.sh /opt/nifi/startnifi.sh
+RUN chmod 777 /opt/nifi/startnifi.sh
 EXPOSE 8080 8181
-WORKDIR $NIFI_HOME
 
 # Startup NiFi
-ENTRYPOINT ["bin/nifi.sh"]
-CMD ["run"]
+CMD ["/bin/bash", "/opt/nifi/startnifi.sh"]
