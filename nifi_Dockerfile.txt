@@ -1,0 +1,34 @@
+FROM centos:latest
+MAINTAINER testing
+
+USER root
+
+# install dev tools
+RUN yum clean all; \
+    rpm --rebuilddb; \
+        yum install -y wget curl which tar sudo
+
+# java
+RUN curl -LO 'http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
+RUN rpm -i jdk-8u131-linux-x64.rpm
+RUN rm jdk-8u131-linux-x64.rpm
+
+ENV JAVA_HOME /usr/java/default
+ENV PATH $PATH:$JAVA_HOME/bin
+RUN rm /usr/bin/java && ln -s $JAVA_HOME/bin/java /usr/bin/java
+
+# nifi
+ENV NIFI_HOME /opt/nifi
+RUN wget https://archive.apache.org/dist/nifi/1.2.0/nifi-1.2.0-bin.tar.gz
+RUN tar -zxvf nifi-1.2.0-bin.tar.gz
+RUN mv nifi-1.2.0 /opt/nifi
+
+RUN sed -i -r "s|^nifi.web.http.host|nifi.web.http.host=`hostname`|g" ${NIFI_HOME}/conf/nifi.properties
+RUN sed -i -r "s|^nifi.zookeeper.connect.string|nifi.zookeeper.connect.string=zookeeper1:2181|g" ${NIFI_HOME}/conf/nifi.properties
+RUN sed -i -r "s|^nifi.cluster.is.node|nifi.cluster.is.node=true|g" ${NIFI_HOME}/conf/nifi.properties
+RUN sed -i -r "s|^nifi.cluster.node.address|nifi.cluster.node.address=`hostname`|g" ${NIFI_HOME}/conf/nifi.properties
+RUN sed -i -r "s|^nifi.cluster.node.protocol.port|nifi.cluster.node.protocol.port=12000|g" ${NIFI_HOME}/conf/nifi.properties
+
+EXPOSE 80 443
+
+CMD ["${NIFI_HOME}/bin/nifi", "start"]
