@@ -5,18 +5,23 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-    hostname: zookeeper
+    hostname: zookeeper1
     ports:
-    - "2181:2181"
+     - "2181:2181"
     networks:
       - nifinw
   nifi:
     image: nifi:latest
+    depends_on:
+      - zookeeper
     deploy:
       replicas: 1
       placement:
         constraints: [node.role == manager]
+    ports:
+     - "8080:8080"
     networks:
       - nifinw
+
 networks:
   nifinw:
