@@ -1,6 +1,6 @@
 version: "3"
 services:
-  zookeeper:
+  zookeeper1:
     image: awsazuser/zkpr349rh7
     deploy:
       placement:
@@ -11,13 +11,11 @@ services:
     networks:
       - nifinw
   nifi:
-    image: nifi:latest
+    image: awsazuser/nifi:latest
     depends_on:
-      - zookeeper
+      - zookeeper1
     deploy:
-      replicas: 3
-      placement:
-        constraints: [node.role == manager]
+      replicas: 5
     ports:
      - "8080:8080"
      - "8081:8081"
