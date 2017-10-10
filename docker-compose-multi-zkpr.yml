@@ -1,0 +1,30 @@
+version: "3"
+services:
+  zookeeper1:
+    image: awsazuser/zkpr349rh7
+    hostname: zookeeper1
+    networks:
+      - nifinw
+  zookeeper2:
+    image: awsazuser/zkpr349rh7
+    hostname: zookeeper2
+    networks:
+      - nifinw
+  zookeeper3:
+    image: awsazuser/zkpr349rh7
+    hostname: zookeeper3
+    networks:
+      - nifinw
+  nifi:
+    image: awsazuser/nifi:latest
+    depends_on:
+      - zookeeper1
+    deploy:
+      replicas: 5
+    ports:
+     - "8080:8080"
+    networks:
+      - nifinw
+
+networks:
+  nifinw:
