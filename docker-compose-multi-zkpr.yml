@@ -16,9 +16,11 @@ services:
     networks:
       - nifinw
   nifi:
-    image: awsazuser/nifi:latest
+    image: awsazuser/nifi13:latest
     depends_on:
       - zookeeper1
+      - zookeeper2
+      - zookeeper3
     deploy:
       replicas: 5
     ports:
