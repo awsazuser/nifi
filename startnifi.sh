@@ -1,7 +1,7 @@
 #!/bin/sh
 
-
-sed -i -r "s|^nifi.web.http.host=.*$|nifi.web.http.host=`hostname -f`|g" ${NIFI_HOME}/conf/nifi.properties
+#sed -i -r "s|^nifi.web.http.host=.*$|nifi.web.http.host=`hostname -f`|g" ${NIFI_HOME}/conf/nifi.properties
+#sed -i -r "s|^nifi.web.http.host=.*$|nifi.web.https.host=`hostname -f`|g" ${NIFI_HOME}/conf/nifi.properties
 sed -i -r "s|^nifi.zookeeper.connect.string=.*$|nifi.zookeeper.connect.string=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181|g" ${NIFI_HOME}/conf/nifi.properties
 sed -i -r "s|^nifi.cluster.is.node=.*$|nifi.cluster.is.node=true|g" ${NIFI_HOME}/conf/nifi.properties
 sed -i -r "s|^nifi.cluster.node.address=.*$|nifi.cluster.node.address=`hostname -f`|g" ${NIFI_HOME}/conf/nifi.properties

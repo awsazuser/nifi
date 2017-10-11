@@ -10,16 +10,24 @@ services:
      - "2181:2181"
     networks:
       - nifinw
-  nifi:
-    image: awsazuser/nifi:latest
+  nifi1:
+    image: awsazuser/nifi13:latest
     depends_on:
       - zookeeper1
     deploy:
-      replicas: 5
+      replicas: 1
     ports:
      - "8080:8080"
      - "8081:8081"
      - "8082:8082"
+    networks:
+      - nifinw
+  nifi2:
+    image: awsazuser/nifi13:latest
+    depends_on:
+      - zookeeper1
+    deploy:
+      replicas: 1
     networks:
       - nifinw
 
