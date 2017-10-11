@@ -11,7 +11,7 @@ services:
     networks:
       - nifinw
   nifi1:
-    image: awsazuser/nifi13:latest
+    image: awsazuser/nifi14
     depends_on:
       - zookeeper1
     deploy:
@@ -23,7 +23,7 @@ services:
     networks:
       - nifinw
   nifi2:
-    image: awsazuser/nifi13:latest
+    image: awsazuser/nifi14
     depends_on:
       - zookeeper1
     deploy:

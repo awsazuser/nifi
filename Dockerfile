@@ -1,7 +1,7 @@
 FROM openjdk:8-jre
 LABEL maintainer "awsazuser"
 
-ARG NIFI_VERSION=1.0.0
+ARG NIFI_VERSION=1.4.0
 ARG MIRROR=https://archive.apache.org/dist
 
 ENV NIFI_BASE_DIR /opt/nifi 
